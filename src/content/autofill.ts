@@ -1,4 +1,5 @@
 import { PageDetailsCollector } from "./PageDetailsCollector";
+import { SignInAutofillScriptGenerator } from "./scripts/SignInAutofillScript";
 
 /*
 1. collecting page details
@@ -13,5 +14,11 @@ import { PageDetailsCollector } from "./PageDetailsCollector";
 
 const pageDetailsCollector = new PageDetailsCollector();
 const pageDetails = pageDetailsCollector.collect(document);
+
+const signInAutofillScriptGenerator = new SignInAutofillScriptGenerator();
+const autofillScript = signInAutofillScriptGenerator.generateScript(pageDetails, {
+  username: "u_test",
+  password: "p_test",
+});
 
 debugger;

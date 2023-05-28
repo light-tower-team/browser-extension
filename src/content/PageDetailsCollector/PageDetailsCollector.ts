@@ -1,3 +1,4 @@
+import { toCollection } from "../../shared/utils/toCollection";
 import type { Field, Form, PageDetails } from "./types";
 import {
   createDocumentUid,
@@ -10,7 +11,6 @@ import {
   isElementVisible,
   query,
 } from "./utils";
-import { toCollection } from "./utils/toCollection";
 
 const DEFAULT_FIELD_MAX_LENGTH = 999;
 

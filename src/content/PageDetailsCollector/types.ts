@@ -1,4 +1,4 @@
-export type Nullable<TType = unknown> = TType | null;
+import { Nullable } from "../../shared/types";
 
 export type FormAttrs = {
   id: Nullable<string>;
@@ -39,8 +39,8 @@ export type Field = {
   isViewable: boolean;
 };
 
-export type FormCollection = Partial<Record<Form["uid"], Form>>;
-export type FieldCollection = Partial<Record<Field["uid"], Field>>;
+export type FormCollection = Record<Form["uid"], Form>;
+export type FieldCollection = Record<Field["uid"], Field>;
 
 export type Timestamp = number;
 
