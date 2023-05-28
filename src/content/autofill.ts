@@ -1,3 +1,4 @@
+import { AutofillScriptExecuteEngine } from "./AutofillScriptExecuteEngine";
 import { PageDetailsCollector } from "./PageDetailsCollector";
 import { SignInAutofillScriptGenerator } from "./scripts/SignInAutofillScript";
 
@@ -12,13 +13,16 @@ import { SignInAutofillScriptGenerator } from "./scripts/SignInAutofillScript";
   - engine
 */
 
-const pageDetailsCollector = new PageDetailsCollector();
-const pageDetails = pageDetailsCollector.collect(document);
+setTimeout(() => {
+  const pageDetailsCollector = new PageDetailsCollector();
+  const pageDetails = pageDetailsCollector.collect(document);
 
-const signInAutofillScriptGenerator = new SignInAutofillScriptGenerator();
-const autofillScript = signInAutofillScriptGenerator.generateScript(pageDetails, {
-  username: "u_test",
-  password: "p_test",
-});
+  const signInAutofillScriptGenerator = new SignInAutofillScriptGenerator();
+  const autofillScript = signInAutofillScriptGenerator.generateScript(pageDetails, {
+    username: "u_test",
+    password: "p_test",
+  });
 
-debugger;
+  const autofillScriptExecuteEngine = new AutofillScriptExecuteEngine(pageDetailsCollector.fieldsBuffer);
+  autofillScriptExecuteEngine.execute(autofillScript);
+}, 1000);

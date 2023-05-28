@@ -1,5 +1,5 @@
 import { toCollection } from "../../shared/utils/toCollection";
-import type { Field, Form, PageDetails } from "./types";
+import type { Field, FieldBuffer, Form, FormBuffer, PageDetails } from "./types";
 import {
   createDocumentUid,
   createFieldUid,
@@ -15,6 +15,9 @@ import {
 const DEFAULT_FIELD_MAX_LENGTH = 999;
 
 export class PageDetailsCollector {
+  public formBuffer: FormBuffer = {};
+  public fieldsBuffer: FieldBuffer = {};
+
   public collect(document: Document): PageDetails {
     const view = document.defaultView ?? window;
 
@@ -41,6 +44,7 @@ export class PageDetailsCollector {
    * @returns {Form[]}
    */
   protected findForms(document: Document): Form[] {
+    this.formBuffer = {};
     return query<HTMLFormElement>(document, "form").map(formElement => {
       const uid = createFormUid();
       const id = getElementAttrValue(formElement, "id");
@@ -62,6 +66,8 @@ export class PageDetailsCollector {
 
       Object.defineProperty(formElement, "uid", { get: () => uid });
 
+      this.formBuffer[form.uid] = [form, formElement];
+
       return form;
     });
   }
@@ -69,9 +75,10 @@ export class PageDetailsCollector {
   /**
    * Getting all exists the page fields
    * @param {Document} document
-   * @returns {Field[]}
+   * @returns {Field[]} Found fields
    */
   protected findFields(document: Document): Field[] {
+    this.fieldsBuffer = {};
     return findFields(document).map((fieldElement, index) => {
       const uid = createFieldUid();
 
@@ -128,7 +135,14 @@ export class PageDetailsCollector {
 
       Object.defineProperty(fieldElement, "uid", { get: () => uid });
 
+      this.fieldsBuffer[field.uid] = [field, fieldElement];
+
       return field;
     });
+  }
+
+  public clean(): void {
+    this.formBuffer = {};
+    this.fieldsBuffer = {};
   }
 }

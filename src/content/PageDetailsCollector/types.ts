@@ -42,6 +42,9 @@ export type Field = {
 export type FormCollection = Record<Form["uid"], Form>;
 export type FieldCollection = Record<Field["uid"], Field>;
 
+export type FormBuffer = Record<Form["uid"], [Form, Element]>;
+export type FieldBuffer = Record<Field["uid"], [Field, Element]>;
+
 export type Timestamp = number;
 
 export type PageDetails = {
