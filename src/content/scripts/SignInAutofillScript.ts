@@ -32,7 +32,7 @@ export class SignInAutofillScript implements IAutofillScript {
     }
 
     for (const formUid in pageDetails.forms) {
-      passwordFields.forEach((passwordField) => {
+      passwordFields.forEach(passwordField => {
         passwords.push(passwordField);
       });
     }
@@ -50,7 +50,7 @@ export class SignInAutofillScript implements IAutofillScript {
       return false;
     }
 
-    if (PASSWORD_FIELD_IGNORE_LIST.some((word) => cleanedValue.indexOf(word) !== -1)) {
+    if (PASSWORD_FIELD_IGNORE_LIST.some(word => cleanedValue.indexOf(word) !== -1)) {
       return false;
     }
 

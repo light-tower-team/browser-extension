@@ -1,9 +1,9 @@
 import { query } from "./query";
 
-export type FormElement = HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement | HTMLSpanElement;
+export type FieldElement = HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement | HTMLSpanElement;
 
-export const getFromElements = (document: Document, limit = 50): Array<FormElement> => {
-  const foundElements = query<FormElement>(
+export function findFields(document: Document, limit = 50): Array<FieldElement> {
+  const foundElements = query<FieldElement>(
     document,
     "input" +
       ':not([type="hidden"])' +
@@ -47,4 +47,4 @@ export const getFromElements = (document: Document, limit = 50): Array<FormEleme
   }
 
   return foundElements;
-};
+}
